@@ -1,8 +1,8 @@
 NAME = philo
 CC = gcc
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror -g
 
-SRCS = main.c utils.c libftutils.c
+SRCS = main.c utils.c libftutils.c routins.c utils2.c
 
 OBJS = $(SRCS:.c=.o)
 

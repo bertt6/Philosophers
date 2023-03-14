@@ -26,42 +26,31 @@ int arg_control(char **av)
 
 void data_assign(t_philo *data, char **av, int ac)
 {
-     data->philo_num = ft_atoi(av[1]);
-     data->dead_time = ft_atoi(av[2]);
-     data->eat_time = ft_atoi(av[3]);
-     data->sleep_time = ft_atoi(av[4]);
-     data->fork_num = ft_atoi(av[1]);
+     data->data->philo_num = ft_atoi(av[1]);
+     data->data->dead_time = ft_atoi(av[2]);
+     data->data->eat_time = ft_atoi(av[3]);
+     data->data->sleep_time = ft_atoi(av[4]);
      if(ac == 6)
-          data->eat_num = ft_atoi(av[5]);
-     data->fork = malloc(sizeof(int) * data->fork_num);
-     data->philo = malloc(sizeof(int) * data->philo_num);
-}
-
-void *philo(void *data)
-{
-     t_philo *d;
-     d = (t_philo *)data;
-     printf("BUNEY %d\n", d->philo_num);
-     return NULL;
+          data->data->eat_num = ft_atoi(av[5]);
+     else
+          data->data->eat_num = -1;
+     data->data->fork_num = data->data->philo_num;
+     data->data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->data->fork_num);
+     data->data->philo = malloc(sizeof(t_philo) * data->data->philo_num);
+     data->data->dead = 32;
+    data->data->start_time = get_time(); // start_time değişkenine get_time fonksiyonu ile başlangıç zamanı atanıyor    
 }
 
 void create_thread(t_philo *data)
 {
-     pthread_t *thread;
-     int i;
-
-     i = 0;
-     thread = malloc(sizeof(pthread_t) * data->philo_num);
-     while(i < data->philo_num)
+     int i = 0;
+     while(i < data->data->philo_num)
      {
-          pthread_create(&thread[i], NULL, philo, (void *)data);
-          i++;
-     }
-     i = 0;
-     while(i < data->philo_num)
-     {
-          pthread_join(thread[i], NULL);
-          i++;
+          //printf("DENEME %d\n", data->philo[i].philo);
+          data->data->philo[i].philo = i + 1;
+          data->data->philo[i].meal = 0;
+          data->data->philo[i].last_meal = 0;
+          pthread_create(&(data->data->philo[i].thread), NULL, routine, (void *)&data->data->philo[i]);
      }
 }
 
@@ -70,9 +59,10 @@ void mutex_init(t_philo *data)
      int i;
 
      i = 0;
-     while(i < data->fork_num)
+     while(i < data->data->fork_num)
      {
-          pthread_mutex_init(&data->fork[i], NULL);
+          pthread_mutex_init(&data->data->fork_mutex[i], NULL);
           i++;
      }
+     pthread_mutex_init(&data->data->print_mutex, NULL);
 }
