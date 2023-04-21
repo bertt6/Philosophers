@@ -1,53 +1,57 @@
-
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 # include <unistd.h>
-# include <pthread.h>
-#include <sys/time.h>
 
 typedef struct s_philo
 {
-     int philo;
-     int meal;
-     pthread_t thread;
-     int last_meal;
-     struct s_data *data;
-     pthread_mutex_t meal_mutex;
-
-}              t_philo;
+    int             id_philo;
+    int             meals;
+    int             must_meal_num;
+    unsigned long   last_eat;
+    pthread_t       thread;
+}                   t_philo;
 
 typedef struct s_data
 {
-     int philo_num;
-     int dead_time;
-     int eat_time;
-     int sleep_time;
-     int eat_num;
-     int fork_num;
-     int *fork;
-     pthread_mutex_t *fork_mutex;
-     t_philo *philo;
-     int dead;
-     int start_time; // yeni start_time değişkeni eklendi
-     pthread_mutex_t print_mutex; // yeni print_mutex ekledim
-}              t_data;
+    int                 philo_num;
+    int                 die_time;
+    int                 eat_time;
+    int                 sleep_time;
+    int                 must_eat_num;
+    int                 philo_dead;
+    int                 thread_index;
+    unsigned long       start_time;
+    pthread_t           dead;
+    pthread_mutex_t     write_mutex;
+    pthread_mutex_t     *forks;
+    t_philo             *philo;
+}                       t_data;
 
-int arg_control(char **av);
-void data_assign(t_philo *data, char **av, int ac);
-int	ft_atoi(const char *str);
-void create_thread(t_philo *data);
-void mutex_init(t_philo *data);     
-void print_status(t_philo *philo, char *status);
-void take_forks(t_philo *philo);
-void eat(t_philo *philo);
-void put_forks(t_philo *philo);
-void think(t_philo *philo);
-void *routine(void *philo_ptr);
-void cleanup(t_philo *data);
-void *monitor_thread(void *arg);
-unsigned long long get_time();
+int	        ft_atoi(const char *str);
+int         arg_check(int ac, char **av);
+int         data_assign(char **av, t_data *data);
+void	        smart_sleep(int time);
+unsigned long	get_time(void);
+void        init_mutex(t_data *data);
+void        init_philo(t_data *data);
+void        *one_philo(void *data_a);
+void        thread_join(t_data *data);
+void create_thread(t_data *data);
+unsigned long	get_passed_time(unsigned long begin);
+int is_dead(t_data *data);
+int all_philos_eating(t_data *data);
+int philo_dead(t_data *data, int index);
+void *dead(void *data_a);
+int print_status(t_data *data, int index, char *text);
+int eating(t_data *data, int index);
+int thinking(t_data *data, int index);
+int sleeping(t_data *data, int index);
+void *routine(void *data_a);
+
 
 #endif

@@ -1,8 +1,8 @@
 NAME = philo
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 
-SRCS = main.c utils.c libftutils.c routins.c utils2.c
+SRCS = main.c utils.c check.c inits.c philos.c routines.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -27,4 +27,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re"
+.PHONY: all clean fclean re
