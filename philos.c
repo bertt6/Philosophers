@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bsamli <bsamli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:23:55 by macos             #+#    #+#             */
-/*   Updated: 2023/04/26 23:59:53 by macos            ###   ########.fr       */
+/*   Updated: 2023/05/03 19:11:12 by bsamli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	philo_dead(t_data *data, int index)
 
 void	*dead(void *data_a)
 {
-	int	 i;
+	int		i;
 	t_data	*data;
 
 	i = 0;
