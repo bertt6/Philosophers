@@ -1,6 +1,6 @@
 NAME = philo
 CC = gcc
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror -g
 
 SRCS = main.c utils.c check.c inits.c philos.c routines.c
 

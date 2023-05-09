@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsamli <bsamli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/22 23:23:49 by macos             #+#    #+#             */
-/*   Updated: 2023/05/03 19:05:08 by bsamli           ###   ########.fr       */
+/*   Created: 2023/04/22 23:23:49 by bsamli            #+#    #+#             */
+/*   Updated: 2023/05/09 15:49:52 by bsamli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_mutex(t_data *data)
 	int	i;
 
 	i = 0;
-	data->forks = malloc (sizeof(pthread_mutex_t) * data->philo_num);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	while (i < data->philo_num)
 		pthread_mutex_init(&data->forks[i++], NULL);
 	pthread_mutex_init(&data->write_mutex, NULL);
@@ -28,7 +28,7 @@ void	init_philo(t_data *data)
 	int	i;
 
 	i = 0;
-	data->philo = malloc (sizeof(t_philo) * data->philo_num);
+	data->philo = malloc(sizeof(t_philo) * data->philo_num);
 	while (i < data->philo_num)
 	{
 		data->philo[i].id_philo = i + 1;
@@ -47,7 +47,8 @@ void	*one_philo(void *data_a)
 	data = (t_data *)data_a;
 	print_status(data, 0, "has taken fork");
 	smart_sleep(data->die_time);
-	printf("0 died\n");
+	printf("%-10lu   %d %s\n", get_passed_time(data->start_time),
+		data->philo[0].id_philo, "died");
 	return (NULL);
 }
 

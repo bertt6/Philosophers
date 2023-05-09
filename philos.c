@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsamli <bsamli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/22 23:23:55 by macos             #+#    #+#             */
-/*   Updated: 2023/05/03 19:11:12 by bsamli           ###   ########.fr       */
+/*   Created: 2023/04/22 23:23:55 by bsamli            #+#    #+#             */
+/*   Updated: 2023/05/09 13:54:50 by bsamli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	philo_dead(t_data *data, int index)
 
 	pthread_mutex_lock(&data->write_mutex);
 	time = get_passed_time(data->philo[index].last_eat);
-	if (time >= (unsigned long)data->die_time)
+	if (time >= (unsigned long)data->die_time
+		&& !(data->philo[index].meals == data->must_eat_num))
 	{
 		printf("%-10lu   %d %s\n", time, data->philo[index].id_philo, "died");
 		data->philo_dead = 1;
