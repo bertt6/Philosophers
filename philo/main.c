@@ -6,7 +6,7 @@
 /*   By: bsamli <bsamli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:18:49 by bsamli            #+#    #+#             */
-/*   Updated: 2023/05/09 15:57:19 by bsamli           ###   ########.fr       */
+/*   Updated: 2023/05/30 16:15:44 by bsamli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ int	main(int ac, char **av)
 	init_mutex(data);
 	init_philo(data);
 	create_thread(data);
+	system("leaks philo");
 }

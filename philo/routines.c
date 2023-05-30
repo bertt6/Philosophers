@@ -6,7 +6,7 @@
 /*   By: bsamli <bsamli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:23:58 by bsamli            #+#    #+#             */
-/*   Updated: 2023/05/08 12:42:23 by bsamli           ###   ########.fr       */
+/*   Updated: 2023/05/26 19:09:17 by bsamli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	*routine(void *data_a)
 	pthread_mutex_lock(&data->write_mutex);
 	index = data->thread_index;
 	pthread_mutex_unlock(&data->write_mutex);
+	if (data->philo[index].id_philo % 2 == 0)
+		usleep(100);
 	while (1)
 	{
 		if (data->must_eat_num != data->philo[index].meals)
